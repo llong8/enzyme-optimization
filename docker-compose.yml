@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./results:/app/results
+      - ./examples_results:/app/examples_results
     ports:
       - "8888:8888"
     command: python -m jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
@@ -21,6 +22,7 @@ services:
       - ./src:/app/src
       - ./notebooks:/app/notebooks
       - ./results:/app/results
+      - ./examples_results:/app/examples_results
     ports:
       - "8889:8888"
     command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password='' --LabApp.token='' --LabApp.password=''
@@ -35,6 +37,7 @@ services:
       - "5000:5000"
     volumes:
       - ./results:/app/results
+      - ./examples_results:/app/examples_results
     depends_on:
       - enzyme-ml
     command: gunicorn --bind 0.0.0.0:5000 src.api.app:app 

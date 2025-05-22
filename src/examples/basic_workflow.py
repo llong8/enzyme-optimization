@@ -19,11 +19,11 @@ def run_basic_workflow():
     print("=== 转氨酶优化基本工作流程 ===")
     
     # 创建结果目录
-    os.makedirs('examples_results', exist_ok=True)
+    os.makedirs('examples_results/basic_workflow', exist_ok=True)
     
     # 步骤1：模拟活性测定实验
     print("\n1. 模拟酶活性测定实验")
-    assay = EnzymeActivityAssay(output_dir='examples_results')
+    assay = EnzymeActivityAssay(output_dir='examples_results/basic_workflow')
     
     # 定义要测试的变体和底物
     variants = [
@@ -48,14 +48,14 @@ def run_basic_workflow():
     # 绘制pH-活性曲线
     ph_profile_fig = assay.plot_ph_activity_profile(
         results,
-        output_file='examples_results/ph_activity_profile.png'
+        output_file='examples_results/basic_workflow/ph_activity_profile.png'
     )
     
     # 比较在pH 7.5下的活性
     comparison_fig = assay.compare_variants_at_ph(
         results,
         ph_value=7.5,
-        output_file='examples_results/variant_comparison_pH7.5.png'
+        output_file='examples_results/basic_workflow/variant_comparison_pH7.5.png'
     )
     
     # 步骤3：分析最佳变体
@@ -77,7 +77,7 @@ def run_basic_workflow():
         print(f"  活性: {best_variant['Activity_Mean']:.2f} ± {best_variant['Activity_Std']:.2f} U/mg")
         print(f"  相对于野生型的提升: {best_variant['Activity_Mean'] / ph7_5_data[(ph7_5_data['Substrate'] == substrate) & (ph7_5_data['Variant'] == '3FCR-3M')]['Activity_Mean'].values[0]:.2f} 倍")
     
-    print("\n工作流程完成！结果保存在 'examples_results' 目录中")
+    print("\n工作流程完成！结果保存在 'examples_results/basic_workflow' 目录中")
     
     return results
 
